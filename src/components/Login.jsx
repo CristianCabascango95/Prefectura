@@ -36,11 +36,12 @@ export default function Login() {
         <input type="password" placeholder="Contraseña" onChange={(e) => setPassword(e.target.value)} required />
         <button type="submit">Iniciar sesión</button>
       </form>
-      <p>
-  ¿Olvidaste tu contraseña? <a href="/reset-password">Recupérala aquí</a>
-</p>
+    
       <p>
         ¿No tienes cuenta? <a href="/register">Regístrate</a>
+      </p>
+      <p>
+       ¿Olvidaste tu contraseña? <a href="/reset-password">Recupérala aquí</a>
       </p>
 
     </div>
