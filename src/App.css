@@ -40,3 +40,114 @@
 .read-the-docs {
   color: #888;
 }
+/* App.css */
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+}
+
+.loading-text {
+  padding: 2rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.dashboard-container {
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard-title {
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.user-section {
+  position: relative;
+}
+
+.user-avatar {
+  background-color: #555;
+  color: white;
+  width: 40px;
+  height: 40px;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.user-menu {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.user-menu button {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.user-menu button:hover {
+  background-color: #c9302c;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.portfolio-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.portfolio-title {
+  margin: 0 0 0.8rem;
+  color: #005c99;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.3rem;
+}
+
+.activity-list {
+  list-style: none;
+  padding-left: 1rem;
+}
+
+.activity-item {
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  position: relative;
+}
+
+.activity-item::before {
+  content: "•";
+  color: #005c99;
+  position: absolute;
+  left: 0;
+}

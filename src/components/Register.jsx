@@ -20,6 +20,16 @@ export default function Register() {
 
   return (
     <div className="container">
+       <img
+  src="https://cotopaxi.gob.ec/test.cotopaxi.gob.ec/wp-content/uploads/2024/09/Captura-de-pantalla-2024-09-14-a-las-13.59.13.png"
+  alt="Logo"
+  style={{
+    width: '150px',
+    height: 'auto',
+    display: 'block',
+    margin: '0 auto 1rem',
+  }}
+/>
       <h2>Registrarse</h2>
       <form onSubmit={handleRegister}>
         <input type="email" placeholder="Correo" onChange={(e) => setEmail(e.target.value)} required />

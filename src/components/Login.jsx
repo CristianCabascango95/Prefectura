@@ -20,6 +20,16 @@ export default function Login() {
 
   return (
     <div className="container">
+    <img
+  src="https://cotopaxi.gob.ec/test.cotopaxi.gob.ec/wp-content/uploads/2024/09/Captura-de-pantalla-2024-09-14-a-las-13.59.13.png"
+  alt="Logo"
+  style={{
+    width: '150px',
+    height: 'auto',
+    display: 'block',
+    margin: '0 auto 1rem',
+  }}
+/>
       <h2>Iniciar sesión</h2>
       <form onSubmit={handleLogin}>
         <input type="email" placeholder="Correo" onChange={(e) => setEmail(e.target.value)} required />
@@ -27,8 +37,17 @@ export default function Login() {
         <button type="submit">Iniciar sesión</button>
       </form>
       <p>
+  ¿Olvidaste tu contraseña? <a href="/reset-password">Recupérala aquí</a>
+</p>
+      <p>
         ¿No tienes cuenta? <a href="/register">Regístrate</a>
       </p>
+
     </div>
   );
+
+
 }
+
+
+
