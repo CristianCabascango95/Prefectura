@@ -20,11 +20,29 @@ html, body, #root {
   text-align: center;
 }
 
-/* Contenedor principal del dashboard */
+/* Contenedor principal del dashboard - AHORA CON IMAGEN DE FONDO */
 .dashboard-container {
   width: 100%;
   height: 100%;
-  padding-top: 60px;
+  padding-top: 60px; /* Espacio para el navbar */
+  position: relative; /* Necesario para el pseudo-elemento overlay */
+  background-image: url('/public/IMG_7921.JPG'); /* Ruta a tu imagen en la carpeta public */
+  background-size: cover; /* La imagen cubrirá todo el contenedor */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  overflow-y: auto; /* Para permitir el scroll si el contenido es muy largo */
+}
+
+/* Overlay semi-transparente para mejorar la legibilidad del texto */
+.dashboard-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* Negro con 20% de opacidad */
+  z-index: 1; /* Asegura que esté sobre la imagen pero debajo del contenido */
 }
 
 /* Navbar fija superior */
@@ -40,7 +58,7 @@ html, body, #root {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 1000; /* Asegura que el navbar esté sobre el overlay y la imagen */
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -115,46 +133,60 @@ html, body, #root {
   padding: 1rem;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative; /* Asegura que el contenido esté sobre el overlay */
+  z-index: 2; /* Mayor que el z-index del overlay */
+  color: white; /* Cambia el color del texto a blanco para mejor contraste */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Sombra para el texto */
 }
+
+.dashboard-content h2 {
+  color: white; /* Asegura que el título también sea blanco */
+  font-size: 2.2rem;
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
 
 .card-row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.5rem; /* Aumenta el espacio entre las cards */
   margin-top: 2rem;
 }
 
 /* Tarjetas del dashboard */
 .dashboard-card {
-  background-color: white;
-  border: 1px solid #ddd;
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente para las cards */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Borde suave */
   border-radius: 12px;
-  padding: 1rem;
-  width: 260px;
+  padding: 1.5rem; /* Aumenta el padding */
+  width: 280px; /* Un poco más de ancho */
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Sombra más pronunciada */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   cursor: pointer;
 }
 
 .dashboard-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-7px); /* Más elevación al pasar el ratón */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 1); /* Se vuelve más sólido al hover */
 }
 
 .dashboard-card h3 {
-  margin-bottom: 0.5rem;
-  color: #2c3e50;
-  font-size: 1.1rem;
+  margin-bottom: 0.75rem; /* Más espacio */
+  color: #2c3e50; /* Color oscuro para el texto dentro de la card */
+  font-size: 1.25rem; /* Fuente más grande */
 }
 
 .dashboard-card p {
-  color: #666;
-  font-size: 0.9rem;
+  color: #555; /* Color oscuro para la descripción */
+  font-size: 0.95rem; /* Fuente un poco más grande */
 }
 
-/* --- ESTILOS PARA REPOSITORIO (MODIFICADOS PARA RESPONSIVE Y LAYOUT) --- */
+/* --- Estilos del Repositorio (no relacionados con el dashboard directamente, pero incluidos para referencia) --- */
 .repositorio-container {
   padding: 2rem;
   margin-top: 60px; /* Espacio para el navbar fijo */
@@ -164,52 +196,46 @@ html, body, #root {
   background-color: #f4f4f4; /* Fondo del cuerpo */
 }
 
-/* Contenedor principal del contenido del repositorio */
 .repositorio-content-wrapper {
   display: flex;
   flex-direction: column; /* Columna por defecto */
   width: 100%;
-  max-width: 1400px; /* Un poco más de ancho para pantallas grandes */
-  margin: 0 auto; /* Centrar wrapper */
-  gap: 2rem; /* Espacio entre las secciones */
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 2rem;
   padding: 1rem;
 }
 
-/* Media query para pantallas grandes (desktop) */
-@media (min-width: 992px) { /* Por ejemplo, para tabletas grandes y desktops */
+@media (min-width: 992px) {
   .repositorio-content-wrapper {
-    flex-direction: row; /* En fila para pantallas grandes */
-    justify-content: space-between; /* Espacio entre las columnas */
-    align-items: flex-start; /* Alinea los ítems al inicio del eje cruzado */
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
   }
 }
 
-/* Sección de archivos subidos (izquierda, grande) */
 .uploaded-files-section {
-  flex: 3; /* Ocupa 3 partes del espacio disponible */
+  flex: 3;
   background-color: white;
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  order: 2; /* Para pantallas pequeñas, va debajo de la subida */
+  order: 2;
 }
 
 @media (min-width: 992px) {
   .uploaded-files-section {
-    order: 1; /* Para pantallas grandes, va a la izquierda */
+    order: 1;
   }
 }
 
-
-/* Grid de las cards de documentos */
 .uploaded-files-grid {
-  display: grid; /* Usamos grid para un control más preciso */
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Columnas responsivas */
-  gap: 1rem; /* Espacio entre las cards */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
   margin-top: 1.5rem;
 }
 
-/* Estilos de las cards de documentos */
 .document-card {
   background-color: white;
   border: 1px solid #e0e0e0;
@@ -220,9 +246,9 @@ html, body, #root {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Empuja el enlace abajo */
+  justify-content: space-between;
   align-items: center;
-  min-height: 150px; /* Ajusta la altura mínima para el contenido */
+  min-height: 150px;
 }
 
 .document-card:hover {
@@ -231,28 +257,28 @@ html, body, #root {
 }
 
 .document-card .file-icon {
-  font-size: 3.5rem; /* Icono un poco más grande */
+  font-size: 3.5rem;
   color: #4a4a4a;
   margin-bottom: 0.8rem;
 }
 
 .document-card h4 {
-  font-size: 0.95rem; /* Fuente un poco más pequeña para el nombre */
+  font-size: 0.95rem;
   color: #333;
   margin-bottom: 0.8rem;
   word-break: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box; /* Para truncar texto en varias líneas */
-  -webkit-line-clamp: 2; /* Limita a 2 líneas */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   line-height: 1.3;
-  max-height: 2.6em; /* 2 líneas * line-height */
+  max-height: 2.6em;
 }
 
 .document-card .download-link {
-  display: inline-block; /* Para que el padding y margin funcionen */
-  margin-top: auto; /* Empuja el enlace al final */
+  display: inline-block;
+  margin-top: auto;
   padding: 0.4rem 0.8rem;
   background-color: #2563eb;
   color: white;
@@ -268,20 +294,19 @@ html, body, #root {
   text-decoration: none;
 }
 
-/* Sección de subida de archivos (derecha, pequeña) */
 .upload-section {
-  flex: 1; /* Ocupa 1 parte del espacio disponible */
+  flex: 1;
   background-color: white;
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  order: 1; /* Para pantallas pequeñas, va arriba de la lista */
+  order: 1;
 }
 
 @media (min-width: 992px) {
   .upload-section {
-    order: 2; /* Para pantallas grandes, va a la derecha */
-    max-width: 350px; /* Limita el ancho de la columna de subida */
+    order: 2;
+    max-width: 350px;
   }
 }
 
@@ -316,11 +341,10 @@ html, body, #root {
   background-color: #0056b3;
 }
 
-
 .upload-section .upload-btn {
   width: 100%;
   padding: 0.75rem;
-  background-color: #28a745; /* Botón verde para subir */
+  background-color: #28a745;
   color: white;
   border: none;
   border-radius: 8px;
@@ -339,7 +363,6 @@ html, body, #root {
   cursor: not-allowed;
 }
 
-/* Mensajes de subida */
 .upload-message {
   margin-top: 1.5rem;
   padding: 0.75rem;
@@ -350,26 +373,25 @@ html, body, #root {
 }
 
 .upload-message.success {
-  background-color: #d4edda; /* Verde claro */
-  color: #155724; /* Verde oscuro */
+  background-color: #d4edda;
+  color: #155724;
   border: 1px solid #c3e6cb;
 }
 
 .upload-message.error {
-  background-color: #f8d7da; /* Rojo claro */
-  color: #721c24; /* Rojo oscuro */
+  background-color: #f8d7da;
+  color: #721c24;
   border: 1px solid #f5c6cb;
 }
 
-/* Lista de archivos seleccionados antes de subir */
 .file-list {
   margin-top: 1rem;
   background-color: #f8f8f8;
   border: 1px solid #eee;
   border-radius: 8px;
   padding: 0.8rem;
-  max-height: 150px; /* Limita la altura de la lista */
-  overflow-y: auto; /* Habilita scroll si hay muchos archivos */
+  max-height: 150px;
+  overflow-y: auto;
 }
 
 .file-list h4 {
@@ -380,7 +402,7 @@ html, body, #root {
 }
 
 .file-list ul {
-  list-style-type: none; /* Quitamos los puntos por defecto */
+  list-style-type: none;
   padding: 0;
 }
 

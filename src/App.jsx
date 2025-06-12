@@ -16,6 +16,7 @@ export default function App() {
         <Route path="/reset-password" element={<ResetPassword />} /> {/* 👈 nueva ruta */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/ruta1" element={<Repositorio />} /> {/* <- Aquí se conecta */}
+
       </Routes>
     </BrowserRouter>
   );
