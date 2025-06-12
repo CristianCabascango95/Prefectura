@@ -5,6 +5,7 @@ import Register from "./components/Register";
 import ResetPassword from "./components/ResetPassword"; 
 import Dashboard from "./pages/Dashboard";
 
+
 export default function App() {
   return (
     <BrowserRouter>

@@ -32,7 +32,7 @@ export default function Login() {
 />
       <h2>Iniciar sesión</h2>
       <form onSubmit={handleLogin}>
-        <input type="email" placeholder="Correo" onChange={(e) => setEmail(e.target.value)} required />
+        <input type="email" placeholder="Correo o Número" onChange={(e) => setEmail(e.target.value)} required />
         <input type="password" placeholder="Contraseña" onChange={(e) => setPassword(e.target.value)} required />
         <button type="submit">Iniciar sesión</button>
       </form>

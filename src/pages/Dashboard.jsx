@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import { auth } from "../firebase/config";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { parseExcelFile } from "../utils/excelParser";
 import "../App.css";
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [showMenu, setShowMenu] = useState(false);
-  const [portafolios, setPortafolios] = useState({});
   const [loading, setLoading] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
     signOut(auth).then(() => navigate("/"));
@@ -20,17 +18,9 @@ export default function Dashboard() {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (!user) return navigate("/");
       setUser(user);
+      setLoading(false);
     });
 
-    const fetchExcel = async () => {
-      const res = await fetch("/PLANTILLA TICS 18_11_2024.xlsx");
-      const blob = await res.blob();
-      const parsed = await parseExcelFile(blob);
-      setPortafolios(parsed);
-      setLoading(false);
-    };
-
-    fetchExcel();
     return () => unsubscribe();
   }, [navigate]);
 
@@ -38,37 +28,62 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-container">
-      <header className="dashboard-header">
-        <h2 className="dashboard-title">Panel de Portafolios</h2>
-        <div className="user-section">
+      {/* Navbar */}
+      <nav className="navbar">
+        <div className="navbar-left">
+          <img
+    src="/coto1.png"
+    alt="Logo"
+    className="dashboard-logo"
+  />
+        </div>
+
+        <div className="navbar-right">
           <div
-            className="user-avatar"
-            onClick={() => setShowMenu(!showMenu)}
+            className="user-info"
+            onClick={() => setMenuOpen(!menuOpen)}
             title={user.email}
           >
             {user.email.charAt(0).toUpperCase()}
+            <span className="user-email"></span>
           </div>
-          {showMenu && (
-            <div className="user-menu">
-              <button onClick={handleLogout}>Cerrar sesión</button>
-            </div>
+
+          {menuOpen && (
+            <button className="logout-btn" onClick={handleLogout}>
+              Cerrar sesión
+            </button>
           )}
         </div>
-      </header>
+      </nav>
 
-      <div className="cards-container">
-        {Object.keys(portafolios).map((nombre) => (
-          <div key={nombre} className="portfolio-card">
-            <h4 className="portfolio-title">{nombre}</h4>
-            <ul className="activity-list">
-              {portafolios[nombre].map((act, idx) => (
-                <li key={idx} className="activity-item">
-                  {act}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+      {/* Contenido del Dashboard */}
+      <div className="dashboard-content">
+        <h2>Bienvenido</h2>
+        {
+        <div className="card-row">
+  <div className="dashboard-card" onClick={() => navigate("/ruta1")}>
+    <h3>Repositorio</h3>
+    <p>Documentación de cada portafólio </p>
+  </div>
+  <div className="dashboard-card" onClick={() => navigate("/ruta2")}>
+    <h3>Registro de gui de areas restricgidas</h3>
+    <p>Ver control de asistencia</p>
+  </div>
+  <div className="dashboard-card" onClick={() => navigate("/ruta3")}>
+    <h3>Informe Técnico en el ambito de su competencia</h3>
+    <p>Gestión de Accesos a Sistemas y Aplicaciones</p>
+  </div>
+  <div className="dashboard-card" onClick={() => navigate("/ruta4")}>
+    <h3>Plan de análisis, identifiacion y mitigación de riesgos de infraestructura</h3>
+    <p>Modificar preferencias</p>
+  </div>
+</div>
+
+
+
+  
+        
+         }
       </div>
     </div>
   );
