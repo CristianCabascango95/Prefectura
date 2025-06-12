@@ -10,7 +10,7 @@ export default function Repositorio() {
 
   // Definición de la URL base del backend
   const API_BASE_URL = process.env.NODE_ENV === 'production'
-    ? 'https://talento-humano-backend.onrender.com' // ¡CAMBIA ESTO POR LA URL REAL DE TU BACKEND EN RENDER!
+    ? 'https://prefectura-backend.onrender.com' // ¡CAMBIA ESTO POR LA URL REAL DE TU BACKEND EN RENDER!
     : 'http://localhost:3001'; // URL de tu backend local
 
   const handleFileChange = (e) => {
