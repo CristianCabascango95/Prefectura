@@ -1,157 +1,4 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-/* App.css */
-
-body {
-  margin: 0;
-  font-family: 'Arial', sans-serif;
-  background-color: #f9f9f9;
-}
-
-.loading-text {
-  padding: 2rem;
-  font-size: 1.2rem;
-  text-align: center;
-}
-
-.dashboard-container {
-  padding: 2rem;
-  min-height: 100vh;
-}
-
-.dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.dashboard-title {
-  color: #333;
-  font-size: 1.8rem;
-}
-
-.user-section {
-  position: relative;
-}
-
-.user-avatar {
-  background-color: #555;
-  color: white;
-  width: 40px;
-  height: 40px;
-  font-weight: bold;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.user-menu {
-  position: absolute;
-  top: 45px;
-  right: 0;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  z-index: 10;
-}
-
-.user-menu button {
-  background-color: #d9534f;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.user-menu button:hover {
-  background-color: #c9302c;
-}
-
-.cards-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.portfolio-card {
-  background-color: white;
-  border-radius: 10px;
-  padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.portfolio-title {
-  margin: 0 0 0.8rem;
-  color: #005c99;
-  font-size: 1.2rem;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 0.3rem;
-}
-
-.activity-list {
-  list-style: none;
-  padding-left: 1rem;
-}
-
-.activity-item {
-  margin-bottom: 0.5rem;
-  padding-left: 0.5rem;
-  position: relative;
-}
-
-.activity-item::before {
-  content: "•";
-  color: #005c99;
-  position: absolute;
-  left: 0;
-}
-/* 🔧 Reset global */
+/* Reset general */
 * {
   margin: 0;
   padding: 0;
@@ -161,20 +8,26 @@ body {
 html, body, #root {
   width: 100vw;
   height: 100vh;
-  overflow-x: hidden;
-  font-family: sans-serif;
+  font-family: 'Arial', sans-serif;
   background-color: #f4f4f4;
+  overflow-x: hidden;
 }
 
-/* Contenedor principal */
+/* Loader */
+.loading-text {
+  padding: 2rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* Contenedor principal del dashboard */
 .dashboard-container {
   width: 100%;
   height: 100%;
-  margin: 0;
-  padding: 0;
+  padding-top: 60px;
 }
 
-/* 📌 Navbar */
+/* Navbar fija superior */
 .navbar {
   width: 100%;
   height: 60px;
@@ -183,24 +36,23 @@ html, body, #root {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 16px;
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* 📷 Logo */
-.navbar-logo {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  object-fit: cover;
+/* Logo del dashboard */
+.dashboard-logo {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
-/* 👤 Usuario */
+/* Usuario y botón logout */
 .navbar-right {
   display: flex;
   align-items: center;
@@ -208,88 +60,82 @@ html, body, #root {
 }
 
 .user-info {
-  cursor: pointer;
   background-color: #0150c0;
-  padding: 8px 12px;
+  padding: 6px 10px;
   border-radius: 20px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 600;
-  user-select: none;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.user-info:hover {
+  background-color: #003e91;
 }
 
 .user-email {
   display: none;
+  margin-left: 8px;
 }
 
-.logout-btn {
-  position: absolute;
-  top: 50px;
-  right: 0;
-  background-color: #ef4444;
-  border: none;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  white-space: nowrap;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-}
-
-.logout-btn:hover {
-  background-color: #dc2626;
-}
-
-/* Mostrar email en pantallas grandes */
+/* Mostrar correo en pantallas grandes */
 @media (min-width: 600px) {
   .user-email {
     display: inline;
   }
 }
 
-/* 📄 Contenido debajo del navbar */
-.dashboard-content {
-  padding-top: 70px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-/* 🖼️ Imagen centrada dentro del dashboard */
-.logo-wrapper {
-  text-align: center;
-  margin-bottom: 1rem;
+/* Botón de cerrar sesión */
+.logout-btn {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: #ef4444;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 10;
 }
 
-.dashboard-logo {
-  width: 150px;
-  height: auto;
-  display: block;
-  margin: 0 auto 1rem;
+.logout-btn:hover {
+  background-color: #dc2626;
 }
+
+/* Contenido principal del dashboard */
+.dashboard-content {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .card-row {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: stretch;
-  flex-wrap: wrap; /* Esto permite que se adapten en pantallas pequeñas */
   gap: 1rem;
-  margin: 2rem auto;
-  max-width: 1200px;
-  padding: 0 1rem;
+  margin-top: 2rem;
 }
 
+/* Tarjetas del dashboard */
 .dashboard-card {
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 12px;
-  padding: 1.5rem;
-  width: 240px;
+  padding: 1rem;
+  width: 260px;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  flex-shrink: 0;
+  cursor: pointer;
 }
 
 .dashboard-card:hover {
@@ -300,9 +146,254 @@ html, body, #root {
 .dashboard-card h3 {
   margin-bottom: 0.5rem;
   color: #2c3e50;
+  font-size: 1.1rem;
 }
 
 .dashboard-card p {
   color: #666;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+}
+
+/* --- ESTILOS PARA REPOSITORIO (MODIFICADOS PARA RESPONSIVE Y LAYOUT) --- */
+.repositorio-container {
+  padding: 2rem;
+  margin-top: 60px; /* Espacio para el navbar fijo */
+  display: flex;
+  flex-direction: column; /* Por defecto en columna para móviles */
+  min-height: calc(100vh - 60px); /* Ocupa casi toda la altura visible */
+  background-color: #f4f4f4; /* Fondo del cuerpo */
+}
+
+/* Contenedor principal del contenido del repositorio */
+.repositorio-content-wrapper {
+  display: flex;
+  flex-direction: column; /* Columna por defecto */
+  width: 100%;
+  max-width: 1400px; /* Un poco más de ancho para pantallas grandes */
+  margin: 0 auto; /* Centrar wrapper */
+  gap: 2rem; /* Espacio entre las secciones */
+  padding: 1rem;
+}
+
+/* Media query para pantallas grandes (desktop) */
+@media (min-width: 992px) { /* Por ejemplo, para tabletas grandes y desktops */
+  .repositorio-content-wrapper {
+    flex-direction: row; /* En fila para pantallas grandes */
+    justify-content: space-between; /* Espacio entre las columnas */
+    align-items: flex-start; /* Alinea los ítems al inicio del eje cruzado */
+  }
+}
+
+/* Sección de archivos subidos (izquierda, grande) */
+.uploaded-files-section {
+  flex: 3; /* Ocupa 3 partes del espacio disponible */
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  order: 2; /* Para pantallas pequeñas, va debajo de la subida */
+}
+
+@media (min-width: 992px) {
+  .uploaded-files-section {
+    order: 1; /* Para pantallas grandes, va a la izquierda */
+  }
+}
+
+
+/* Grid de las cards de documentos */
+.uploaded-files-grid {
+  display: grid; /* Usamos grid para un control más preciso */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Columnas responsivas */
+  gap: 1rem; /* Espacio entre las cards */
+  margin-top: 1.5rem;
+}
+
+/* Estilos de las cards de documentos */
+.document-card {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Empuja el enlace abajo */
+  align-items: center;
+  min-height: 150px; /* Ajusta la altura mínima para el contenido */
+}
+
+.document-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.document-card .file-icon {
+  font-size: 3.5rem; /* Icono un poco más grande */
+  color: #4a4a4a;
+  margin-bottom: 0.8rem;
+}
+
+.document-card h4 {
+  font-size: 0.95rem; /* Fuente un poco más pequeña para el nombre */
+  color: #333;
+  margin-bottom: 0.8rem;
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box; /* Para truncar texto en varias líneas */
+  -webkit-line-clamp: 2; /* Limita a 2 líneas */
+  -webkit-box-orient: vertical;
+  line-height: 1.3;
+  max-height: 2.6em; /* 2 líneas * line-height */
+}
+
+.document-card .download-link {
+  display: inline-block; /* Para que el padding y margin funcionen */
+  margin-top: auto; /* Empuja el enlace al final */
+  padding: 0.4rem 0.8rem;
+  background-color: #2563eb;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+}
+
+.document-card .download-link:hover {
+  background-color: #1e40af;
+  text-decoration: none;
+}
+
+/* Sección de subida de archivos (derecha, pequeña) */
+.upload-section {
+  flex: 1; /* Ocupa 1 parte del espacio disponible */
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  order: 1; /* Para pantallas pequeñas, va arriba de la lista */
+}
+
+@media (min-width: 992px) {
+  .upload-section {
+    order: 2; /* Para pantallas grandes, va a la derecha */
+    max-width: 350px; /* Limita el ancho de la columna de subida */
+  }
+}
+
+.upload-section h3 {
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.upload-section input[type="file"] {
+  display: block;
+  margin-bottom: 1rem;
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.upload-section input[type="file"]::-webkit-file-upload-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.upload-section input[type="file"]::-webkit-file-upload-button:hover {
+  background-color: #0056b3;
+}
+
+
+.upload-section .upload-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #28a745; /* Botón verde para subir */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.upload-section .upload-btn:hover {
+  background-color: #218838;
+}
+
+.upload-section .upload-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Mensajes de subida */
+.upload-message {
+  margin-top: 1.5rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.upload-message.success {
+  background-color: #d4edda; /* Verde claro */
+  color: #155724; /* Verde oscuro */
+  border: 1px solid #c3e6cb;
+}
+
+.upload-message.error {
+  background-color: #f8d7da; /* Rojo claro */
+  color: #721c24; /* Rojo oscuro */
+  border: 1px solid #f5c6cb;
+}
+
+/* Lista de archivos seleccionados antes de subir */
+.file-list {
+  margin-top: 1rem;
+  background-color: #f8f8f8;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 0.8rem;
+  max-height: 150px; /* Limita la altura de la lista */
+  overflow-y: auto; /* Habilita scroll si hay muchos archivos */
+}
+
+.file-list h4 {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.file-list ul {
+  list-style-type: none; /* Quitamos los puntos por defecto */
+  padding: 0;
+}
+
+.file-list li {
+  font-size: 0.85rem;
+  color: #666;
+  padding: 0.2rem 0;
+  border-bottom: 1px dashed #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.file-list li:last-child {
+  border-bottom: none;
 }
