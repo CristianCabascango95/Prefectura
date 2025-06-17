@@ -419,285 +419,107 @@ html, body, #root {
 .file-list li:last-child {
   border-bottom: none;
 }
-/* --- ESTILOS PARA EL FORMULARIO DE REGISTRO DE ACCESOS (RegistroAcceso.jsx) --- */
-
-.registro-acceso-container {
-  max-width: 1000px; /* Ancho máximo para el formulario */
-  margin: 80px auto 20px auto; /* Margen superior para el navbar, auto para centrar */
-  padding: 2rem;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+/*formulario de acceso */
+.registro-container {
+  padding: 1rem;
+  font-family: Arial, sans-serif;
 }
 
-.registro-acceso-title {
-  text-align: center;
-  color: #2c3e50;
-  margin-bottom: 2rem;
-  font-size: 1.8rem;
-  text-transform: uppercase;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 1rem;
-}
-
-.form-section {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid #eee;
-}
-
-.form-section.main-data {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    align-items: center; /* Centra los elementos verticalmente */
-    position: relative; /* Para el logo */
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  flex: 1; /* Permite que los grupos de formularios se expandan */
-  min-width: 250px;
-}
-
-.form-group label {
+.form-title {
+  font-size: 1.25rem;
   font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: #333;
+  margin-bottom: 1rem;
 }
 
-.form-group input[type="text"],
-.form-group input[type="date"],
-.form-group input[type="time"] {
-  padding: 0.8rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  width: 100%;
-}
-
-.form-group input[readonly] {
-  background-color: #e9ecef;
-  color: #6c757d;
-  cursor: not-allowed;
-}
-
-.form-logo {
-    position: absolute;
-    top: 50%; /* Centrar verticalmente */
-    right: 0;
-    transform: translateY(-50%); /* Ajuste fino para el centrado */
-    opacity: 0.1; /* Muy opaco para que sea una marca de agua */
-    z-index: 0; /* Fondo */
-    pointer-events: none; /* No interactuable */
-}
-
-.form-logo img {
-    max-width: 300px; /* Ajusta el tamaño del logo */
-    height: auto;
-}
-
-.section-title {
-  text-align: center;
-  color: #444;
-  margin-bottom: 1.5rem;
-  font-size: 1.4rem;
-  text-transform: uppercase;
-  padding-top: 1rem;
-  border-top: 1px solid #eee;
-}
-
-/* Estilos para la fila de entrada de accesos */
-.access-entry-row {
+.form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Columnas responsivas */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1rem;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  border: 1px solid #e9ecef;
+  margin-bottom: 1rem;
 }
 
-.access-entry-row input {
-  padding: 0.7rem;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-  font-size: 0.95rem;
+.form-input {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
   width: 100%;
+  border-radius: 4px;
 }
 
-.btn-add-row {
-  padding: 0.7rem 1.2rem;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.95rem;
-  font-weight: bold;
-  transition: background-color 0.2s ease;
-  width: auto; /* Ancho ajustado al contenido */
-  justify-self: center; /* Centrar el botón en su celda de grid */
-}
-
-.btn-add-row:hover {
-  background-color: #218838;
-}
-
-/* Estilos de tabla */
-.access-table-container,
-.registros-table-container {
-  overflow-x: auto; /* Permite scroll horizontal en tablas si el contenido es grande */
-  margin-bottom: 2rem;
-}
-
-.access-table,
-.registros-table {
+.form-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
-.access-table th,
-.registros-table th,
-.access-table td,
-.registros-table td {
-  border: 1px solid #ddd;
-  padding: 0.8rem;
-  text-align: left;
-  font-size: 0.9rem;
-  white-space: nowrap; /* Evita que el texto se envuelva en las celdas */
+.form-table th, .form-table td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
 }
 
-.access-table th,
-.registros-table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-  color: #333;
+.table-input {
+  width: 100%;
+  padding: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
 
-.access-table tbody tr:nth-child(even),
-.registros-table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.access-table tbody tr:hover,
-.registros-table tbody tr:hover {
-  background-color: #f1f1f1;
-}
-
-.btn-delete-row {
-  background-color: #dc3545;
+.delete-button {
+  background-color: #e53e3e;
   color: white;
-  border: none;
-  padding: 0.4rem 0.6rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  transition: background-color 0.2s ease;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.875rem;
 }
 
-.btn-delete-row:hover {
-  background-color: #c82333;
-}
-
-/* Botones de acción del formulario principal */
-.form-actions {
+.button-group {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
-  border-top: 1px solid #eee;
-  padding-top: 1.5rem;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
 }
 
-.btn-save,
-.btn-modify,
-.btn-delete,
-.btn-cancel-edit {
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
+.form-button {
+  padding: 0.4rem 1rem;
+  border-radius: 5px;
+  font-size: 0.85rem;
   font-weight: bold;
-  transition: background-color 0.2s ease;
-}
-
-.btn-save {
-  background-color: #007bff;
   color: white;
-}
-.btn-save:hover {
-  background-color: #0056b3;
-}
-
-.btn-modify {
-  background-color: #ffc107;
-  color: #212529;
-  margin-right: 0.5rem; /* Espacio entre modificar y eliminar */
-}
-.btn-modify:hover {
-  background-color: #e0a800;
+  border: none;
+  cursor: pointer;
 }
 
-.btn-delete {
-  background-color: #dc3545;
-  color: white;
-}
-.btn-delete:hover {
-  background-color: #c82333;
-}
+.form-button.blue { background-color: #3182ce; }
+.form-button.green { background-color: #38a169; }
+.form-button.purple { background-color: #805ad5; }
 
-.btn-cancel-edit {
-  background-color: #6c757d;
-  color: white;
-}
-.btn-cancel-edit:hover {
-  background-color: #5a6268;
-}
-
-.saved-registros-list {
-  margin-top: 2rem;
-}
-
-.no-registros-message {
-  text-align: center;
-  color: #777;
-  font-style: italic;
+.pdf-template {
+  background: white;
+  color: black;
   padding: 1rem;
-  background-color: #f0f0f0;
-  border-radius: 8px;
 }
-/* ... (estilos anteriores) ... */
 
-/* Estilo para el botón de Descargar */
-.btn-download {
-  display: block; /* Ocupa todo el ancho disponible */
-  width: fit-content; /* Se ajusta al contenido */
-  margin: 1.5rem auto; /* Centrar y dar espacio */
-  padding: 0.8rem 1.5rem;
-  background-color: #17a2b8; /* Un color distintivo para descargar */
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
+.logo-img {
+  width: 100px;
+  position: absolute;
+  right: 40px;
+  top: 40px;
+}
+
+.pdf-title {
+  text-align: center;
   font-weight: bold;
-  transition: background-color 0.2s ease;
+  font-size: 14px;
+  margin-bottom: 1rem;
 }
 
-.btn-download:hover {
-  background-color: #138496;
+.pdf-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 10px;
 }
 
-/* Ajustes menores para la lista de registros guardados */
-.saved-registros-list {
-  margin-top: 2rem;
-  text-align: center; /* Para centrar el botón de descarga */
+.pdf-table th, .pdf-table td {
+  border: 1px solid black;
+  padding: 4px;
+  text-align: center;
 }
