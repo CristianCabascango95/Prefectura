@@ -56,15 +56,15 @@ export default function Dashboard() {
       <div className="dashboard-content">
         <h2>Bienvenido</h2>
         <div className="card-row">
-          <div className="dashboard-card" onClick={() => navigate("/ruta1")}>
+          <div className="dashboard-card" onClick={() => navigate("/Repositorio")}>
             <h3>REPOSITORIO</h3>
             <p>Documentación de cada portafólio </p>
           </div>
-          <div className="dashboard-card" onClick={() => navigate("/ruta2")}>
+          <div className="dashboard-card" onClick={() => navigate("/RegistroaAreasRestringidas")}>
             <h3>REGISTRO DE ACCESOS A ÁREAS RESTRINGIDAS</h3>
             <p>Ver control de asistencia</p>
           </div>
-          <div className="dashboard-card" onClick={() => navigate("/ruta3")}>
+          <div className="dashboard-card" onClick={() => navigate("/InformeTecnico")}>
             <h3>INFORME TÉCNICO EN EL ÁMBITO DE SU COMPETENCIA</h3>
             <p>Gestión de Accesos a Sistemas y Aplicaciones</p>
           </div>

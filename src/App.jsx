@@ -18,9 +18,9 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/reset-password" element={<ResetPassword />} /> {/* 👈 nueva ruta */}
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/ruta1" element={<Repositorio />} /> {/* <- Aquí se conecta */}
-        <Route path="/ruta2" element={<RegistroAcceso />} /> {/* <-- Nueva ruta */}
-        <Route path="/ruta3" element={<InformeTecnico />} /> {/* <-- Nueva ruta */}
+        <Route path="/Repositorio" element={<Repositorio />} /> {/* <- Aquí se conecta */}
+        <Route path="/RegistroaAreasRestringidas" element={<RegistroAcceso />} /> {/* <-- Nueva ruta */}
+        <Route path="/InformeTecnico" element={<InformeTecnico />} /> {/* <-- Nueva ruta */}
 
       </Routes>
     </BrowserRouter>
