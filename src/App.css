@@ -23,13 +23,14 @@ html, body, #root {
 /* Contenedor principal del dashboard - AHORA CON IMAGEN DE FONDO */
 .dashboard-container {
   width: 100%;
-  height: 100%;
+  min-height: 100vh; /* Para que siempre ocupe al menos toda la altura de la ventana */
   padding-top: 60px; /* Espacio para el navbar */
   position: relative; /* Necesario para el pseudo-elemento overlay */
   background-image: url('/IMG_7921.JPG'); /* Ruta a tu imagen en la carpeta public */
-  background-size: cover; /* La imagen cubrirá todo el contenedor */
+  background-size: contain; /* ¡CAMBIO CLAVE AQUÍ! La imagen se escalará para caber completamente */
   background-position: center; /* Centra la imagen */
   background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-attachment: fixed; /* Fija la imagen de fondo para un scroll suave del contenido */
   overflow-y: auto; /* Para permitir el scroll si el contenido es muy largo */
 }
 
@@ -40,8 +41,8 @@ html, body, #root {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3); /* Negro con 20% de opacidad */
+  height: 100%; /* El overlay cubrirá todo el contenedor */
+  background-color: rgba(0, 0, 0, 0.3); /* Negro con 30% de opacidad */
   z-index: 1; /* Asegura que esté sobre la imagen pero debajo del contenido */
 }
 
@@ -522,4 +523,357 @@ html, body, #root {
   border: 1px solid black;
   padding: 4px;
   text-align: center;
+}
+/*//////////////////////////*/
+/* src/App.css */
+
+/* Estilos Generales para el body y el contenedor principal en pantalla */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.app-container-wrapper {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 210mm; /* Ancho de una hoja A4 */
+  padding: 20mm; /* Padding interno para el contenido del formulario */
+  box-sizing: border-box;
+  margin: 20px auto;
+}
+
+/* El informe-container ahora solo es un contenedor flex que ocupa todo el wrapper */
+.informe-container {
+    width: 100%;
+    padding: 0; /* Asegurarse de que no tiene padding propio aquí */
+    box-sizing: border-box;
+    /* font-family: Arial, sans-serif; /* Ya está en el body, pero se puede repetir si se desea */
+    /* max-width: 800px; /* Esto es redundante si app-container-wrapper ya tiene 210mm */
+    /* margin: 20px auto; /* Esto es redundante si app-container-wrapper ya lo centra */
+    /* border: 1px solid #ccc; /* Esto es redundante si app-container-wrapper ya tiene borde */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Redundante */
+    /* background-color: #fff; /* Redundante */
+}
+
+.informe-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Encabezado */
+.informe-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Asegurar que el logo esté a la izquierda */
+  margin-bottom: 20px;
+}
+
+.logo-informe {
+  width: 80px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.header-text {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.header-text p {
+  margin: 0;
+  font-size: 1em;
+  line-height: 1.2; /* Asegurar espaciado de línea */
+}
+
+.header-text strong {
+  font-size: 1.1em;
+}
+
+.header-details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 0.9em;
+  flex-wrap: wrap; /* Permitir que los elementos se envuelvan si la pantalla es pequeña */
+  gap: 10px; /* Espacio entre los grupos de etiquetas */
+}
+
+.header-details label {
+  display: flex;
+  align-items: baseline;
+  flex: 1; /* Permite que la etiqueta ocupe el espacio disponible */
+  min-width: 250px; /* Ancho mínimo para cada grupo de label/input para evitar que se aprieten demasiado */
+}
+
+/* **AJUSTE CRÍTICO PARA LA UNIDAD Y OTROS INPUTS DE ENCABEZADO** */
+.header-details .input-line {
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
+  padding: 2px 5px;
+  margin-left: 5px;
+  font-size: 0.9em;
+  width: auto; /* IMPORTANTE: Quitar el ancho fijo */
+  flex-grow: 1; /* Permitir que el input crezca */
+  min-width: 0; /* Permitir que el input se reduzca si el contenido es largo */
+  white-space: normal; /* Permitir que el texto se ajuste */
+  word-break: break-word; /* Romper palabras largas */
+}
+
+.fecha-input-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.input-fecha-dia,
+.input-fecha-mes,
+.input-fecha-anio {
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
+  width: 25px;
+  text-align: center;
+  padding: 2px 0;
+}
+
+.input-fecha-anio {
+  width: 35px;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid #000;
+  margin: 20px 0;
+}
+
+/* Secciones Generales */
+.section {
+  margin-bottom: 20px;
+}
+
+.section h3 {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.section li {
+  margin-bottom: 10px;
+}
+
+/* **AJUSTE PARA LOS INPUTS-LINE GENERALES** */
+.input-line {
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
+  padding: 2px 5px;
+  flex-grow: 1;
+  margin-left: 5px;
+  min-width: 0; /* Permitir que el input se reduzca */
+  white-space: normal;
+  word-break: break-word;
+}
+
+.input-line.large {
+    width: 100%; /* Ocupar el 100% del espacio disponible */
+    max-width: none; /* Asegurar que no hay límite superior que corte el texto */
+    min-width: 0; /* Asegurarse de que pueda reducirse si es necesario */
+}
+
+label {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 5px;
+  font-size: 0.95em;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+.checkbox-group label {
+    margin-bottom: 0;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.description-text {
+  font-style: italic;
+  font-size: 0.85em;
+  color: #555;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+/* **AJUSTE PARA TEXTAREAS** */
+.textarea-line {
+  width: 100%; /* Ocupar todo el ancho disponible */
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
+  padding: 5px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  font-size: 0.95em;
+  resize: vertical;
+  overflow: hidden; /* Oculta el scroll si no hay suficiente contenido */
+  min-height: 30px; /* Altura mínima */
+}
+
+/* Estilo para el "Otro" en evidencias, para que sea pequeño */
+.evidences-group .input-line.small {
+    width: 100px;
+    flex-grow: 0; /* No permitir que crezca si queremos un ancho fijo */
+    min-width: auto; /* Desactivar el min-width: 0 general si es necesario */
+}
+
+/* Botones */
+.button-group {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.submit-button, .download-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 10px;
+  transition: background-color 0.3s ease;
+}
+
+.download-button {
+  background-color: #007bff;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
+}
+
+.download-button:hover {
+  background-color: #0056b3;
+}
+
+/* ESTILOS DE IMPRESIÓN */
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+  }
+
+  .app-container-wrapper {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 15mm 20mm;
+    border: 1px solid #000;
+    box-shadow: none;
+    margin: 0;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  .button-group {
+    display: none !important;
+  }
+
+  .input-line,
+  .textarea-line,
+  .input-fecha-dia,
+  .input-fecha-mes,
+  .input-fecha-anio {
+    border-bottom: 1px solid #000 !important;
+    padding: 2px 0 !important;
+    background-color: transparent !important;
+    color: #000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .checkbox-group label {
+      color: #000 !important;
+      font-weight: normal !important;
+  }
+  .checkbox-group label span {
+      color: #000 !important;
+      font-weight: bold !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Ajuste para el campo de Unidad y otros inputs de encabezado en impresión */
+  .header-details .input-line {
+      flex-grow: 1;
+      min-width: 0;
+      white-space: normal;
+      word-break: break-word;
+  }
+}
+/* ESTILO ESPECÍFICO PARA INPUT TYPE="DATE" */
+.section ul li label input[type="date"] {
+  /* Puedes sobrescribir o complementar los estilos de .input-line */
+  -webkit-appearance: none; /* Elimina estilos por defecto de Safari/Chrome */
+  -moz-appearance: none;    /* Elimina estilos por defecto de Firefox */
+  appearance: none;         /* Elimina estilos por defecto de otros navegadores */
+  background-color: #fff;   /* Fondo blanco */
+  border: none;
+  border-bottom: 1px solid #000; /* Borde inferior */
+  padding: 2px 5px;
+  margin-left: 5px;
+  flex-grow: 1;
+  min-width: 0;
+  font-family: Arial, sans-serif;
+  font-size: 0.95em;
+  /* Si quieres el icono de calendario, no uses -webkit-appearance: none; por completo */
+  /* O busca una forma de estilizarlo para que el icono se vea bien */
+}
+
+/* Estilos para impresión */
+@media print {
+  /* ... tus estilos de impresión existentes ... */
+
+  /* Asegurarse de que el input de fecha se vea como texto en impresión */
+  input[type="date"] {
+    border: none !important;
+    border-bottom: 1px solid #000 !important;
+    background-color: transparent !important;
+    color: #000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    padding: 2px 0 !important; /* Ajustar padding para impresión */
+  }
+  /* Ocultar los iconos del calendario en la impresión */
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="date"]::-webkit-inner-spin-button,
+  input[type="date"]::-webkit-clear-button {
+    display: none !important;
+    -webkit-appearance: none !important;
+  }
 }

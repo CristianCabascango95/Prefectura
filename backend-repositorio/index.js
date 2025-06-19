@@ -23,8 +23,8 @@ const storage = multer.diskStorage({
     cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
-    // Guarda el archivo con su nombre original y un timestamp para evitar colisiones
-    cb(null, Date.now() + '-' + file.originalname);
+    // CAMBIO CLAVE AQUÍ: Usar solo file.originalname para guardar con el nombre original
+    cb(null, file.originalname); // Guarda el archivo con su nombre original
   }
 });
 
@@ -38,10 +38,11 @@ app.post('/upload', upload.array('documents', 10), (req, res) => {
     return res.status(400).json({ message: 'No se seleccionaron archivos para subir.' });
   }
 
+  // Cuando Multer guarda con el nombre original, file.filename también contendrá el original
   const fileNames = req.files.map(file => file.filename);
   res.status(200).json({
     message: 'Archivos subidos exitosamente',
-    files: fileNames,
+    files: fileNames, // Aquí fileNames ahora contendrá los nombres originales
     paths: req.files.map(file => `/uploads/${file.filename}`) // Rutas de los archivos subidos
   });
 });
@@ -63,7 +64,7 @@ app.get('/files', (req, res) => {
         res.status(200).json({
             message: 'Lista de archivos',
             files: fileList.map(file => ({
-                name: file,
+                name: file, // 'file' aquí ya es el nombre original después del cambio en filename
                 url: `${req.protocol}://${req.get('host')}/uploads/${file}` // URL completa del archivo
             }))
         });

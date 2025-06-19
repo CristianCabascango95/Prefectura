@@ -6,6 +6,8 @@ import ResetPassword from "./components/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import Repositorio from "./pages/Repositorio";
 import RegistroAcceso from './pages/RegistroAcceso';
+import InformeTecnico from './pages/InformeTecnico'; // Asegúrate de la ruta correcta
+
 import './App.css'; // Tu archivo CSS global
 
 export default function App() {
@@ -18,6 +20,7 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/ruta1" element={<Repositorio />} /> {/* <- Aquí se conecta */}
         <Route path="/ruta2" element={<RegistroAcceso />} /> {/* <-- Nueva ruta */}
+        <Route path="/ruta3" element={<InformeTecnico />} /> {/* <-- Nueva ruta */}
 
       </Routes>
     </BrowserRouter>

@@ -57,20 +57,20 @@ export default function Dashboard() {
         <h2>Bienvenido</h2>
         <div className="card-row">
           <div className="dashboard-card" onClick={() => navigate("/ruta1")}>
-            <h3>Repositorio</h3>
+            <h3>REPOSITORIO</h3>
             <p>Documentación de cada portafólio </p>
           </div>
           <div className="dashboard-card" onClick={() => navigate("/ruta2")}>
-            <h3>Registro de gui de áreas restringidas</h3>
+            <h3>REGISTRO DE ACCESOS A ÁREAS RESTRINGIDAS</h3>
             <p>Ver control de asistencia</p>
           </div>
           <div className="dashboard-card" onClick={() => navigate("/ruta3")}>
-            <h3>Informe Técnico</h3>
+            <h3>INFORME TÉCNICO EN EL ÁMBITO DE SU COMPETENCIA</h3>
             <p>Gestión de Accesos a Sistemas y Aplicaciones</p>
           </div>
           <div className="dashboard-card" onClick={() => navigate("/ruta4")}>
-            <h3>Plan de mitigación de riesgos</h3>
-            <p>Modificar preferencias</p>
+            <h3>PLAN DE ANÁLISIS, IDENTIFICACIÓN Y MITIGACIÓN DE RIESGOS DE INFRAESTRUCTURA TECNOLÓGICA</h3>
+            <p>Politicas de seguridad</p>
           </div>
         </div>
       </div>
