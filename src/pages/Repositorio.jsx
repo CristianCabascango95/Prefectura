@@ -1,4 +1,3 @@
-// src/pages/Repositorio.jsx
 import React, { useState, useEffect } from "react";
 import "../App.css";
 
@@ -6,17 +5,14 @@ export default function Repositorio() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState("");
-  const [uploadedFileList, setUploadedFileList] = useState([]); // Estado para listar archivos subidos
+  const [uploadedFileList, setUploadedFileList] = useState([]);
 
-  // Definición de la URL base del backend
   const API_BASE_URL = process.env.NODE_ENV === 'production'
-    ? 'https://prefectura-backend.onrender.com' // ¡CAMBIA ESTO POR LA URL REAL DE TU BACKEND EN RENDER!
-    : 'http://localhost:3001'; // URL de tu backend local
+    ? 'https://prefectura-backend.onrender.com'
+    : 'http://localhost:3001';
 
   const handleFileChange = (e) => {
-    // Limpiar el mensaje de subida al seleccionar nuevos archivos
     setUploadMessage("");
-    // Actualizar los archivos seleccionados
     setSelectedFiles(Array.from(e.target.files));
   };
 
@@ -31,13 +27,13 @@ export default function Repositorio() {
 
     const formData = new FormData();
     selectedFiles.forEach(file => {
-      formData.append('documents', file); // 'documents' debe coincidir con el nombre del campo en Multer
+      formData.append('documents', file);
     });
 
     try {
       const response = await fetch(`${API_BASE_URL}/upload`, {
         method: 'POST',
-        body: formData, // FormData envía los archivos correctamente
+        body: formData,
       });
 
       if (!response.ok) {
@@ -47,8 +43,8 @@ export default function Repositorio() {
 
       const data = await response.json();
       setUploadMessage(data.message);
-      setSelectedFiles([]); // Limpiar archivos seleccionados
-      fetchUploadedFiles(); // Actualizar la lista de archivos subidos
+      setSelectedFiles([]);
+      fetchUploadedFiles();
     } catch (error) {
       console.error("Error al subir el archivo:", error);
       setUploadMessage(`Error al subir archivos: ${error.message}`);
@@ -57,7 +53,6 @@ export default function Repositorio() {
     }
   };
 
-  // Función para obtener la lista de archivos subidos
   const fetchUploadedFiles = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/files`);
@@ -65,11 +60,9 @@ export default function Repositorio() {
         throw new Error('Error al obtener la lista de archivos');
       }
       const data = await response.json();
-      // Asegurarse de que data.files es un array antes de establecerlo
       if (Array.isArray(data.files)) {
         setUploadedFileList(data.files);
       } else {
-        console.warn("La respuesta del backend no es un array de archivos:", data);
         setUploadedFileList([]);
       }
     } catch (error) {
@@ -78,34 +71,51 @@ export default function Repositorio() {
     }
   };
 
-  // Cargar la lista de archivos al montar el componente
+  const handleDeleteFile = async (fileName) => {
+    if (!window.confirm(`¿Estás seguro de que deseas eliminar "${fileName}"?`)) return;
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/files/${fileName}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('No se pudo eliminar el archivo');
+      }
+
+      setUploadMessage(`Archivo "${fileName}" eliminado correctamente.`);
+      fetchUploadedFiles();
+    } catch (error) {
+      console.error("Error al eliminar el archivo:", error);
+      setUploadMessage(`Error al eliminar archivo: ${error.message}`);
+    }
+  };
+
   useEffect(() => {
     fetchUploadedFiles();
-  }, []); // Se ejecuta una vez al montar el componente
+  }, []);
 
-  // Función para determinar el icono del archivo (básica, puedes expandirla)
   const getFileIcon = (fileName) => {
     const ext = fileName.split('.').pop().toLowerCase();
     switch (ext) {
-      case 'pdf': return '📄'; // Icono de PDF
+      case 'pdf': return '📄';
       case 'doc':
-      case 'docx': return '📝'; // Icono de documento Word
+      case 'docx': return '📝';
       case 'xls':
-      case 'xlsx': return '📊'; // Icono de hoja de cálculo Excel
+      case 'xlsx': return '📊';
       case 'png':
       case 'jpg':
       case 'jpeg':
-      case 'gif': return '🖼️'; // Icono de imagen
+      case 'gif': return '🖼️';
       case 'zip':
-      case 'rar': return '📁'; // Icono de carpeta/comprimido
-      default: return '📎'; // Icono genérico de clip
+      case 'rar': return '📁';
+      default: return '📎';
     }
   };
 
   return (
     <div className="repositorio-container">
       <div className="repositorio-content-wrapper">
-        {/* Sección para mostrar los archivos subidos como cards (Izquierda, grande) */}
         <div className="uploaded-files-section">
           <h3>Documentos en el Repositorio:</h3>
           {uploadedFileList.length > 0 ? (
@@ -113,16 +123,23 @@ export default function Repositorio() {
               {uploadedFileList.map((file, index) => (
                 <div key={index} className="document-card">
                   <span className="file-icon">{getFileIcon(file.name)}</span>
-                  {/* El atributo title permite ver el nombre completo al pasar el ratón */}
                   <h4 title={file.name}>{file.name}</h4>
-                  <a
-                    href={`${API_BASE_URL}/uploads/${file.name}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="download-link"
-                  >
-                    Descargar
-                  </a>
+                  <div className="document-actions">
+                    <a
+                      href={`${API_BASE_URL}/uploads/${file.name}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="download-link"
+                    >
+                      Descargar
+                    </a>
+                    <button
+                      className="delete-button"
+                      onClick={() => handleDeleteFile(file.name)}
+                    >
+                      Eliminar
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -131,7 +148,6 @@ export default function Repositorio() {
           )}
         </div>
 
-        {/* Sección de subida de archivos (Derecha, pequeña) */}
         <div className="upload-section">
           <h3>Subir Archivos</h3>
           <input type="file" multiple onChange={handleFileChange} disabled={uploading} />

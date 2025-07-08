@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from "react"; // Importa useEffect
+import React, { useRef, useState, useEffect } from "react";
 import { db } from "../firebase/config";
-import { collection, addDoc, getDocs, query, orderBy, limit } from "firebase/firestore"; // Importa getDocs, query, orderBy, limit
+import { collection, addDoc, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -21,55 +21,36 @@ export default function RegistroAcceso() {
   const [area, setArea] = useState("");
   const [responsable, setResponsable] = useState("");
   const [fecha, setFecha] = useState("");
-  const [registros, setRegistros] = useState([initialEntry()]); // Se inicializa con una entrada vacía por si no hay datos guardados
+  const [registros, setRegistros] = useState([initialEntry()]);
+  const [searchNombre, setSearchNombre] = useState("");
+  const [searchFecha, setSearchFecha] = useState("");
   const pdfRef = useRef();
   const logoRef = useRef();
 
-  // --- NUEVA LÓGICA: Cargar datos desde Firebase al iniciar el componente ---
   useEffect(() => {
     const loadLastEntry = async () => {
       try {
-        // Consulta los documentos en la colección 'registro_accesos'
-        // Ordena por la marca de tiempo de creación (si la tuvieras, sería ideal)
-        // o simplemente intenta obtener el último documento si no hay campo de tiempo.
-        // NOTA: Firebase no tiene un "último" documento intrínseco. Lo mejor es
-        // añadir un campo `timestamp` al guardar los datos para ordenar por él.
-        // Por simplicidad, aquí buscaremos los datos, pero lo ideal es un timestamp.
-
-        // Para este ejemplo, vamos a cargar el más reciente si se añadió un timestamp.
-        // Si no tienes un timestamp al guardar, esta parte necesitaría una ligera modificación
-        // en tu función saveToFirebase para añadir uno, por ejemplo:
-        // const datos = { area, responsable, fecha, registros, timestamp: new Date() };
-
         const q = query(
           collection(db, "registro_accesos"),
-          orderBy("timestamp", "desc"), // Asegúrate de que 'timestamp' exista en tus documentos
-          limit(1) // Obtiene solo el documento más reciente
+          orderBy("timestamp", "desc"),
+          limit(1)
         );
         const querySnapshot = await getDocs(q);
 
         if (!querySnapshot.empty) {
           const lastDoc = querySnapshot.docs[0].data();
-          setArea(lastDoc.area || "");
-          setResponsable(lastDoc.responsable || "");
-          setFecha(lastDoc.fecha || "");
-          // Asegúrate de que 'registros' en Firebase sea un array, si no, usa un array vacío por defecto
           setRegistros(lastDoc.registros || [initialEntry()]);
         } else {
-          // Si no hay datos guardados, asegúrate de que la tabla tenga al menos una fila vacía
           setRegistros([initialEntry()]);
         }
       } catch (error) {
         console.error("Error al cargar datos desde Firebase: ", error);
-        // Si hay un error al cargar, asegúrate de que el estado esté limpio o con una entrada inicial
         setRegistros([initialEntry()]);
       }
     };
 
     loadLastEntry();
-  }, []); // El array vacío [] asegura que este efecto se ejecute solo una vez al montar el componente
-
-  // --- FIN DE NUEVA LÓGICA ---
+  }, []);
 
   const handleChange = (id, field, value) => {
     setRegistros((prev) =>
@@ -88,16 +69,14 @@ export default function RegistroAcceso() {
   };
 
   const saveToFirebase = async () => {
-    // Es buena práctica añadir una marca de tiempo al guardar para poder ordenar
-    const datos = { area, responsable, fecha, registros, timestamp: new Date() }; // Añade timestamp
+    const datos = { area, responsable, fecha, registros, timestamp: new Date() };
     try {
       await addDoc(collection(db, "registro_accesos"), datos);
       alert("Datos guardados en Firebase.");
-      // Opcional: Si después de guardar quieres limpiar el formulario
-      // setArea('');
-      // setResponsable('');
-      // setFecha('');
-      // setRegistros([initialEntry()]);
+      setArea('');
+      setResponsable('');
+      setFecha('');
+      setRegistros([initialEntry()]);
     } catch (error) {
       console.error("Error al guardar en Firebase: ", error);
       alert("Error al guardar los datos.");
@@ -122,6 +101,12 @@ export default function RegistroAcceso() {
       pdf.save("registro_accesos.pdf");
     });
   };
+
+  // FILTRO: Por nombre y fecha
+  const registrosFiltrados = registros.filter((r) =>
+    r.nombre.toLowerCase().includes(searchNombre.toLowerCase()) &&
+    (searchFecha === "" || fecha === searchFecha)
+  );
 
   return (
     <div className="registro-container">
@@ -150,6 +135,25 @@ export default function RegistroAcceso() {
         />
       </div>
 
+      {/* 🔍 BÚSQUEDA */}
+      <div className="search-filters" style={{ display: 'flex', gap: '1rem', marginTop: '10px' }}>
+        <input
+          type="text"
+          placeholder="Buscar por nombre"
+          value={searchNombre}
+          onChange={(e) => setSearchNombre(e.target.value)}
+          className="form-input"
+          style={{ flex: 1 }}
+        />
+        <input
+          type="date"
+          value={searchFecha}
+          onChange={(e) => setSearchFecha(e.target.value)}
+          className="form-input"
+          style={{ flex: 1 }}
+        />
+      </div>
+
       <table className="form-table">
         <thead>
           <tr>
@@ -159,7 +163,7 @@ export default function RegistroAcceso() {
           </tr>
         </thead>
         <tbody>
-          {registros.map((r) => (
+          {registrosFiltrados.map((r) => (
             <tr key={r.id}>
               {["ingreso", "salida", "nombre", "identificacion", "cargo", "motivo", "firma"].map((field) => (
                 <td key={field}>
@@ -184,7 +188,7 @@ export default function RegistroAcceso() {
         <button onClick={exportarPDF} className="form-button purple">Descargar</button>
       </div>
 
-      {/* PLANTILLA PARA EXPORTAR */}
+      {/* PDF */}
       <div ref={pdfRef} className="pdf-template">
         <div className="pdf-content">
           <img ref={logoRef} src={logo} alt="Logo" className="logo-img" />
@@ -207,7 +211,7 @@ export default function RegistroAcceso() {
               </tr>
             </thead>
             <tbody>
-              {registros.map((r) => (
+              {registrosFiltrados.map((r) => (
                 <tr key={r.id}>
                   <td>{r.ingreso}</td>
                   <td>{r.salida}</td>
